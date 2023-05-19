@@ -70,7 +70,7 @@ export function MintingPage() {
         <div>
 
             {
-                isContractCreatedWithAccount ? <MintingPageWhenContractExist /> : <PleaseCreateContract />
+                isContractCreatedWithAccount ? <MintingPageWhenContractExist /> : <MintingPageWhenContractExist />
             }
 
         </div>
