@@ -366,7 +366,7 @@ const NiftyGatewayCard = ({ tokenId, tokenURL, totalSupplyProp, priceProp, maxSu
                                     {name}
                                 </StyledName>
                                 <StyledPrice component="p">
-                                    <span>${price * 250}</span>
+                                    <span>${price * 1813}</span>
                                     &nbsp;
                                     <StyledFloorePrice component="span">
                                         = {price} {chainSymbol[chain.id]}

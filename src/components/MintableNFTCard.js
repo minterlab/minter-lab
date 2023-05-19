@@ -6,10 +6,10 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
 import { Button, Fade, Grow, TextField } from '@mui/material';
 import { useMinterLabStore } from '../hooks';
-import { useAccount, useSigner } from 'wagmi';
+import { useAccount, useNetwork, useSigner } from 'wagmi';
 import axios from 'axios';
 import { ethers } from 'ethers';
-import { contract1155ABI } from '../contracts';
+import { contract1155ABI,chainSymbol } from '../contracts';
 
 const StyledNiftyGatewayCardContainer = styled(Card)(({ theme }) => ({
     height: '415px',
@@ -200,6 +200,9 @@ const StyledInputRow = styled(Box)(({ theme }) => ({
 
 const NiftyGatewayCard = ({ tokenId, tokenURL, totalSupplyProp, priceProp, maxSupplyProp }) => {
 
+
+    const { chain } = useNetwork()
+
     const [loading, setLoading] = useState(false);
     const [nftImageCid, setNftImageCid] = useState("");
 
@@ -318,10 +321,10 @@ const NiftyGatewayCard = ({ tokenId, tokenURL, totalSupplyProp, priceProp, maxSu
                                     {name}
                                 </StyledName>
                                 <StyledPrice component="p">
-                                    <span>$37.00</span>
+                                <span>${price * 1813}</span>
                                     &nbsp;
                                     <StyledFloorePrice component="span">
-                                        = 12 MATIC
+                                        = {price} {chainSymbol[chain.id]}
                                     </StyledFloorePrice>
                                 </StyledPrice>
                                 <StyledEditionsBox>
@@ -361,10 +364,10 @@ const NiftyGatewayCard = ({ tokenId, tokenURL, totalSupplyProp, priceProp, maxSu
                                     {name}
                                 </StyledName>
                                 <StyledPrice component="p">
-                                    <span>$37.00</span>
+                                <span>${price * 1813}</span>
                                     &nbsp;
                                     <StyledFloorePrice component="span">
-                                        = {price} MATIC
+                                        = {price} {chainSymbol[chain.id]}
                                     </StyledFloorePrice>
                                 </StyledPrice>
                                 <StyledEditionsBox>
