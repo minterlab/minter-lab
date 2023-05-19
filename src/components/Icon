@@ -1,0 +1,22 @@
+// import { useDynamicSVGImport } from '../hooks/useDynamicSVGImport'
+
+/**
+ * Simple wrapper for dynamic SVG import hook. You can implement your own wrapper,
+ * or even use the hook directly in your components.
+ */
+export default function Icon({ name, onCompleted=()=>{}, onError=()=>{}, ...rest }) {
+    // const { error, loading, SvgIcon } = useDynamicSVGImport(name, {
+    //     onCompleted,
+    //     onError
+    // });
+    if (error) {
+        return error.message;
+    }
+    if (loading) {
+        return "Loading...";
+    }
+    if (SvgIcon) {
+        return <SvgIcon {...rest} />;
+    }
+    return null;
+};
