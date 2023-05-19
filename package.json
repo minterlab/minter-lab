@@ -1,8 +1,8 @@
 {
-  "name": "minter-lab-1155",
+  "name": "minter-lab",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://smarthug.github.io/minter-lab-1155",
+  "homepage": "https://minterlab.github.io/minter-lab",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
