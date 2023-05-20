@@ -24,7 +24,7 @@ export default function MyRoutes() {
             <Route exact path={`/ManageNFT`} element={<ManageNFT />} />
             <Route path={`/MintingPage/:chainId/:contract1155Address`} element={<MintingPage />} />
             <Route path={`/MintingPage`} element={<MintingPage />} />
-            <Route exact path={`/MetamaskInstall`} element={<MetamaskInstall />} />
+            <Route  path={`/MetamaskInstall`} element={<MetamaskInstall />} />
             <Route exact path={`/Settings`} element={<Settings />} />
             <Route exact path={`/`} element={<About />} />
             <Route path={`*`} element={<NotFound />} />

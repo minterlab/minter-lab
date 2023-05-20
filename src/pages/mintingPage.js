@@ -33,6 +33,7 @@ import { PleaseCreateContract } from '../components/PleaseCreateContract';
 import { getAccount, getNetwork } from '@wagmi/core'
 
 import MintableNFTCard from "../components/MintableNFTCard";
+import { MetamaskInstall } from "./metamaskInstall";
 
 const ListContainer = styled(Box)`
   display: flex;
@@ -66,11 +67,13 @@ margin: 20px;
 export function MintingPage() {
     const isContractCreatedWithAccount = useMinterLabStore(state => state.isContractCreatedWithAccount)
 
+
+    const isMetamaskInstalled = !(typeof window.ethereum === "undefined")
     return (
         <div>
 
             {
-                isContractCreatedWithAccount ? <MintingPageWhenContractExist /> : <MintingPageWhenContractExist />
+                isMetamaskInstalled ? <MintingPageWhenContractExist /> : <MetamaskInstall />
             }
 
         </div>
@@ -102,7 +105,7 @@ function Seller() {
     // 이것도 , 처음에 로드할때 , 불러오는걸로 하자 ...
     // const chainId = 80001;
     const { chain } = getNetwork()
-    const chainId = chain.id
+    const chainId = chain?.id
     const contract1155Address = useMinterLabStore(state => state.contract1155Address);
 
     return (
@@ -112,7 +115,7 @@ function Seller() {
 
             <>
                 <Button variant="contained" to={`/MintingPage/${chainId}/${contract1155Address}`} LinkComponent={Link}>Move to Minting Page</Button>
-                <Button variant="contained" target="_blank" href={`https://${isChainTestnet[chainId] ? "testnets." : ""}opensea.io/assets?search[query]=${contract1155Address}`} >Check on Opensea</Button>
+                <Button variant="contained" target="_blank" href={`https://testnet-zkevm.polygonscan.com/address/${contract1155Address}`} >Check on zkEVM scan</Button>
             </>
 
 
@@ -292,7 +295,7 @@ function Buyer({ contract1155Address, chainId }) {
 
             {/* <Button disabled={false} variant="contained" onClick={mint}>Mint</Button> */}
 
-            <Button variant="contained" target="_blank" href={`https://${isChainTestnet[chainId] ? "testnets." : ""}opensea.io/assets?search[query]=${contract1155Address}`} >Check on Opensea</Button>
+            <Button variant="contained" target="_blank" href={`https://testnet-zkevm.polygonscan.com/address/${contract1155Address}`} >Check on zkEVM scan</Button>
 
             <ManageNFT chainId={chainId} contract1155Address={contract1155Address} />
         </div>
