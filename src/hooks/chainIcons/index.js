@@ -36,6 +36,9 @@ const chainMetadataByName = {
 
     1101:Polygon,
     1442:Polygon,
+
+    50:Polygon,
+    51:Polygon,
 }
 
 export default chainMetadataByName;
