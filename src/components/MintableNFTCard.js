@@ -11,6 +11,9 @@ import axios from 'axios';
 import { ethers } from 'ethers';
 import { contract1155ABI,chainSymbol } from '../contracts';
 
+
+import chainIconsMap from '../hooks/chainIcons'
+
 const StyledNiftyGatewayCardContainer = styled(Card)(({ theme }) => ({
     height: '415px',
     // height: '445px',
@@ -281,6 +284,16 @@ const NiftyGatewayCard = ({ tokenId, tokenURL, totalSupplyProp, priceProp, maxSu
         fetchNFTData()
     }, []);
 
+    const Logo = chainIconsMap[chain.id]
+
+    function priceFormatter(price) {
+        const priceMultipliedByCoinPrice = price * 0.03184;
+    
+        const priceFixed = priceMultipliedByCoinPrice.toFixed(9);
+ 
+        return priceFixed
+    }
+
     return (
         <StyledNiftyGatewayCardContainer>
             {
@@ -315,13 +328,13 @@ const NiftyGatewayCard = ({ tokenId, tokenURL, totalSupplyProp, priceProp, maxSu
                             </StyledNiftyGatewayCardMediaContainer>
                             <StyledNiftyGatewayCardContentContainer>
                                 <StyledChainLogo>
-                                    <img src="https://www.niftygateway.com/static/media/polygon.eac3b5bb94b5760aeb108cc4d95c9921.svg" alt="Polygon Logo" width="20" height="20" />
+                                    <Logo />
                                 </StyledChainLogo>
                                 <StyledName component="p">
                                     {name}
                                 </StyledName>
                                 <StyledPrice component="p">
-                                <span>${price * 1813}</span>
+                                <span>${priceFormatter(price)}</span>
                                     &nbsp;
                                     <StyledFloorePrice component="span">
                                         = {price} {chainSymbol[chain.id]}
@@ -358,13 +371,15 @@ const NiftyGatewayCard = ({ tokenId, tokenURL, totalSupplyProp, priceProp, maxSu
                             </StyledNiftyGatewayCardMediaContainer>
                             <StyledNiftyGatewayCardContentContainer>
                                 <StyledChainLogo>
-                                    <img src="https://www.niftygateway.com/static/media/polygon.eac3b5bb94b5760aeb108cc4d95c9921.svg" alt="Polygon Logo" width="20" height="20" />
+                                    {/* <img src="https://www.niftygateway.com/static/media/polygon.eac3b5bb94b5760aeb108cc4d95c9921.svg" alt="Polygon Logo" width="20" height="20" /> */}
+                                    {/* <img src="https://www.niftygateway.com/static/media/polygon.eac3b5bb94b5760aeb108cc4d95c9921.svg" alt="Polygon Logo" width="20" height="20" /> */}
+                                    <Logo />
                                 </StyledChainLogo>
                                 <StyledName component="p">
                                     {name}
                                 </StyledName>
                                 <StyledPrice component="p">
-                                <span>${price * 1813}</span>
+                                <span>${priceFormatter(price)}</span>
                                     &nbsp;
                                     <StyledFloorePrice component="span">
                                         = {price} {chainSymbol[chain.id]}

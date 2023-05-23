@@ -15,15 +15,17 @@ export const contract1155ABI = Contract1155Contract.output.abi
 
 
 export const manager1155AddressByChainId = {
-    1:      "0xc730a979e940EA3Dc967D23813ce2F62F46D7524",
-    5:      "0xc730a979e940EA3Dc967D23813ce2F62F46D7524",
-    137:    "0xc730a979e940EA3Dc967D23813ce2F62F46D7524",
-    80001:  "0xEE712089D83073e23f0f30Dc9AAD176033CF4e0e",
+    1: "0xc730a979e940EA3Dc967D23813ce2F62F46D7524",
+    5: "0xc730a979e940EA3Dc967D23813ce2F62F46D7524",
+    137: "0xc730a979e940EA3Dc967D23813ce2F62F46D7524",
+    80001: "0xEE712089D83073e23f0f30Dc9AAD176033CF4e0e",
 
     //zkevm
-    1101:   "0x1DbA7d313F48912EE9CA38798eF4458BD11f1190",
-    1442:   "0x1DbA7d313F48912EE9CA38798eF4458BD11f1190",
+    1101: "0x1DbA7d313F48912EE9CA38798eF4458BD11f1190",
+    1442: "0x1DbA7d313F48912EE9CA38798eF4458BD11f1190",
 
+    50: "0x4EF765d1107B5E4627B0CD8728Ca72aa6134F361",
+    51: "0x4EF765d1107B5E4627B0CD8728Ca72aa6134F361",
 }
 
 // export const contract1155AddressByChainId = {
@@ -40,8 +42,11 @@ export const chainName = {
     137: "Polygon",
     80001: "Polygon Mumbai",
 
-    1101:   "Polygon zkEVM",
-    1442:   "zkEVM Testnet",
+    1101: "Polygon zkEVM",
+    1442: "zkEVM Testnet",
+
+    50: "XDC",
+    51: "XDC Testnet",
 }
 
 export const isChainTestnet = {
@@ -50,8 +55,11 @@ export const isChainTestnet = {
     137: false,
     80001: true,
 
-    1101:   false,
-    1442:   true,
+    1101: false,
+    1442: true,
+
+    50: false,
+    51: true,
 }
 
 export const chainSymbol = {
@@ -60,8 +68,11 @@ export const chainSymbol = {
     137: "matic",
     80001: "matic mumbai",
 
-    1101:   "eth zkEVM",
-    1442:   "eth zkEVM goerli",
+    1101: "eth zkEVM",
+    1442: "eth zkEVM goerli",
+
+    50: "xdc",
+    51: "xdc testnet",
 }
 
 // export const chainIdNameMap = {

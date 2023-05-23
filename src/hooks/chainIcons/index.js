@@ -4,8 +4,9 @@ import { default as Ethereum } from "./Ethereum";
 import { default as Hardhat } from "./Hardhat";
 import { default as Optimism } from "./Optimism";
 import { default as Polygon } from "./Polygon";
+import { default as XDC } from "./XDC";
 
-
+// import XDCLogo from './Polygon'
 // const chainMetadataByName = {
 //     arbitrum: Arbitrum,
 //     arbitrumRinkeby: Arbitrum,
@@ -34,8 +35,11 @@ const chainMetadataByName = {
     137: Polygon,
     80001: Polygon,
 
-    1101:Polygon,
-    1442:Polygon,
+    1101: Polygon,
+    1442: Polygon,
+
+    50: XDC,
+    51: XDC,
 }
 
 export default chainMetadataByName;
