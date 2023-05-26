@@ -9,13 +9,13 @@ export default function MyRoutes() {
 
     const navigate = useNavigate();
 
-    useLayoutEffect(() => {
-        if (typeof window.ethereum === "undefined") {
-            console.log("let's install metamask")
-            navigate("/MetamaskInstall");
-            // window.history.push("/install-metamask")
-        }
-    }, [navigate]);
+    // useLayoutEffect(() => {
+    //     if (typeof window.ethereum === "undefined") {
+    //         console.log("let's install metamask")
+    //         navigate("/MetamaskInstall");
+    //         // window.history.push("/install-metamask")
+    //     }
+    // }, [navigate]);
 
     return (
         <Routes base>

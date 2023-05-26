@@ -12,7 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import CollectionSelect from './CollectionSelect1155';
 
-const drawerWidth = 240;
+const drawerWidth = 0;
 
 // const StateMap = {
 //   'CreateCollection': 0,
@@ -112,7 +112,7 @@ export default function ResponsiveDrawer() {
         >
           <SideNav value={value} handleChange={handleChange} />
         </Drawer>
-        <Drawer
+        {/* <Drawer
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
@@ -121,7 +121,7 @@ export default function ResponsiveDrawer() {
           open
         >
           <SideNav value={value} handleChange={handleChange} />
-        </Drawer>
+        </Drawer> */}
       </Box>
     </Box>
   );

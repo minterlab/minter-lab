@@ -13,6 +13,9 @@ import { contract1155ABI, manager1155ABI, manager1155AddressByChainId } from '..
 import { Box } from '@mui/system';
 
 import { styled } from '@mui/system';
+import Web3 from 'web3';
+
+const contract1155AddressBase = "0xB236271f39Bf3136f23472cf65e5F05D900903fF";
 
 const thumbsContainer = {
     display: 'flex',
@@ -156,9 +159,18 @@ export function CreateNFT() {
     const isContractCreatedWithAccount = useMinterLabStore(state => state.isContractCreatedWithAccount);
     console.log("isContractCreatedWithAccount", isContractCreatedWithAccount);
 
+
+
+
+    function Load() {
+        console.log("send load")
+        window.uxpHost?.postMessage({ pluginMessage: { type: "load" } });
+    }
+
     return (
         <>
-            {isContractCreatedWithAccount ? <CreateNFTWhenContractExist /> : <CreateNFTWhenContractNotExist />}
+            <Button onClick={Load}>Load</Button>
+            {isContractCreatedWithAccount ? <CreateNFTWhenContractExist /> : <CreateNFTWhenContractExist />}
         </>
 
     )
@@ -211,7 +223,11 @@ export function CreateNFTWhenContractExist() {
     const [price, setPrice] = useState(0);
     const [maxSupply, setMaxSupply] = useState(0);
 
-    
+    const [imageSrc, setImageSrc] = useState('');
+
+    const [imageBufferArray, setImageBufferArray] = useState([]);
+
+
     const { data: signer, isError, isLoading } = useSigner();
     const { getRootProps,
         getInputProps,
@@ -254,6 +270,115 @@ export function CreateNFTWhenContractExist() {
     }, [files]);
 
 
+    useEffect(() => {
+        // window.uxpHost?.Box
+
+
+        async function handleUxp(event) {
+            console.log(event);
+            console.log(typeof event.data);
+
+            if (event.data.type === "image") {
+                console.log(event.data)
+
+                setImageSrc(event.data.dataUrl)
+                // setFiles([{}])
+                // const base64Data = jpegData.imageData;
+
+                // Decode base64 to Uint8Array
+                const binaryString = window.atob(event.data.jpegData);
+                const uint8Array = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    uint8Array[i] = binaryString.charCodeAt(i);
+                }
+
+                // Create Blob from Uint8Array
+                // const blob = new Blob([uint8Array], { type: 'image/jpeg' });
+                // await ipfsUploadImage(uint8Array)
+
+                setImageBufferArray(uint8Array)
+            }
+
+
+        }
+
+        window.addEventListener("message", handleUxp)
+
+        return () => {
+            window.removeEventListener("message", handleUxp)
+        }
+
+
+
+    }, [])
+
+    async function getTokenId(){
+        const web3 = new Web3("https://erpc.apothem.network");
+        const contract = new web3.eth.Contract(
+            contract1155ABI,
+            contract1155AddressBase
+        ); //address에 deploy된 smart contract 넣을 것
+        await web3.eth.accounts.wallet.add(process.env.REACT_APP_PRIVATE_KEY);
+
+        const tx1155 = await contract.methods.IDs().call();
+        console.log(tx1155)
+        // const tokenID = parseInt(tx1155);
+
+        // console.log(tokenID);
+
+        // console.log(`lets new sale ${tokenID}`)
+    }
+
+
+    const mintNFT = async ({ price, qntt, tokenURI }) => {
+
+
+        const web3 = new Web3("https://erpc.apothem.network");
+        const contract = new web3.eth.Contract(
+            contract1155ABI,
+            contract1155AddressBase
+        ); //address에 deploy된 smart contract 넣을 것
+        await web3.eth.accounts.wallet.add(process.env.REACT_APP_PRIVATE_KEY);
+
+        const tx1155 = await contract.methods.IDs().call();
+        const tokenID = parseInt(tx1155);
+
+        console.log(tokenID);
+
+        console.log(`lets new sale ${tokenID}`)
+
+        // await web3.eth
+        //     .sendTransaction({
+        //         from: process.env.REACT_APP_TREASURY_ACCOUNT,
+        //         to: contract1155AddressBase,
+        //         data: contract.methods
+        //             .setNewSale(
+        //                 tokenID,
+        //                 ethers.utils.parseUnits(`${price}`, 18),
+        //                 qntt,
+        //                 tokenURI
+        //             )
+        //             .encodeABI(),
+        //         gas: "1000000",
+        //     })
+        //     .then(async function (receipt) {
+        //         await web3.eth
+        //             .sendTransaction({
+        //                 from: process.env.REACT_APP_TREASURY_ACCOUNT,
+        //                 to: contract1155AddressBase,
+        //                 data: contract.methods
+        //                     .mintSingle(process.env.REACT_APP_TREASURY_ACCOUNT, tokenID, 1)
+        //                     .encodeABI(),
+        //                 gas: "1000000",
+        //                 value: ethers.utils.parseUnits(`${price}`, 18),
+        //             })
+        //             .then(async function (receipt) {
+        //                 console.log("Mint Success");
+        //             });
+        //     });
+    };
+
+
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -276,9 +401,9 @@ export function CreateNFTWhenContractExist() {
 
         setIsLoading(true);
 
-        if (files.length === 1 && name !== '' && description !== '') {
+        if (imageBufferArray.length > 0 && name !== '' && description !== '') {
             console.log(files);
-            const cid = await ipfsUploadImage(files);
+            const cid = await ipfsUploadImage(imageBufferArray);
             // setImageCID(cid + "/" + files[0].name);
 
             //`https://ipfs.io/ipfs/${imageCID}`
@@ -303,10 +428,10 @@ export function CreateNFTWhenContractExist() {
 
 
 
-            if (signer === undefined) {
-                alert("Please connect your wallet");
-                return;
-            }
+            // if (signer === undefined) {
+            //     alert("Please connect your wallet");
+            //     return;
+            // }
 
             // const { chain } = getNetwork()
 
@@ -320,42 +445,34 @@ export function CreateNFTWhenContractExist() {
                 //  
                 try {
 
-                    // 요부분을 수정
+
+                    // set new sale.
+
+                    // const contract = new ethers.Contract(contract1155Address, contract1155ABI, signer);
+                    // console.log(contract);
+                    // const contractWithSigner = contract.connect(signer)
+
+                    // // const tx1155 = await contractWithSigner.getValues(0, 100)
+                    // // console.log(tx1155)
+                    // // const newTokenId = tx1155[0].toNumber() + 1
+                    // const tx1155 = await contractWithSigner.IDs();
+                    // const IDs = tx1155.toNumber();
+
+                    // // const tx = await contractWithSigner.mintSingle(tokenURL)
+                    // const tx = await contractWithSigner.setNewSale(IDs, ethers.utils.parseUnits(price, 18), +maxSupply, tokenURL)
+
+                    // const rc = await tx.wait()
 
 
-                    // 걍 getter 로 가져올수 있나 , 현재 ids 를?
-                    // 만약 IDs 를 가져왔는데 0 이면 , contract deploy 하게함 
-                    // const IDs = await contractWithSigner.IDs()
-                    // console.log("IDs", IDs)
-                    if (!isContractCreatedWithAccount) {
-                        // contract deploy
 
+                    await mintNFT({ price: price, qntt: +maxSupply, tokenURI: tokenURL })
 
-                    } else {
-                        // set new sale.
+                    // alert("Your NFT is successfully minted!");
 
-                        const contract = new ethers.Contract(contract1155Address, contract1155ABI, signer);
-                        console.log(contract);
-                        const contractWithSigner = contract.connect(signer)
+                    // console.log(tx);
 
-                        // const tx1155 = await contractWithSigner.getValues(0, 100)
-                        // console.log(tx1155)
-                        // const newTokenId = tx1155[0].toNumber() + 1
-                        const tx1155 = await contractWithSigner.IDs();
-                        const IDs = tx1155.toNumber();
+                    // console.log(rc);
 
-                        // const tx = await contractWithSigner.mintSingle(tokenURL)
-                        const tx = await contractWithSigner.setNewSale(IDs, ethers.utils.parseUnits(price, 18), +maxSupply, tokenURL)
-
-                        const rc = await tx.wait()
-
-
-                        // alert("Your NFT is successfully minted!");
-
-                        console.log(tx);
-
-                        console.log(rc);
-                    }
 
 
                 } catch (error) {
@@ -392,12 +509,22 @@ export function CreateNFTWhenContractExist() {
             <div style={test}>
 
                 <section className="container">
-                    <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
+                    {/* <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
                         <input {...getInputProps()} />
                         <p>Drag 'n' drop some files here, or click to select files</p>
-                    </Container>
+                    </Container> */}
                     <aside style={thumbsContainer}>
-                        {thumbs}
+                        <div style={thumb} >
+                            <div style={thumbInner}>
+                                <img
+                                    alt='hello'
+                                    src={imageSrc}
+                                    style={img}
+                                // Revoke data uri after image is loaded
+                                // onLoad={() => { URL.revokeObjectURL(file.preview) }}
+                                />
+                            </div>
+                        </div>
                     </aside>
                 </section>
             </div>
@@ -446,6 +573,7 @@ export function CreateNFTWhenContractExist() {
 
 
                 <Button variant='contained' type="submit">Create NFT</Button>
+                <Button variant='contained' onClick={getTokenId}>id</Button>
             </form>
             {/* <Button variant='contained' onClick={getTokenId}>getID</Button> */}
         </StyledBox>

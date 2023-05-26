@@ -37,13 +37,16 @@ export async function ipfsUploadImage(files) {
   // console.log({ cid })
 
   // const arrayBuffer = reader.result;
-  const blob = new Blob([files[0]]);
+  const blob = new Blob([files], { type: 'image/jpeg' });
+  console.log(blob)
 
   const cid = await client.storeBlob(blob)
   console.log(cid)
 
   const status = await client.status(cid)
   console.log(status)
+
+  console.log(`https://${cid}.ipfs.nftstorage.link`)
   return status.cid;
 
 

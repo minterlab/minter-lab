@@ -258,24 +258,24 @@
 						"type": "uint256"
 					},
 					{
-						"internalType": "uint256[100]",
+						"internalType": "uint256[1000]",
 						"name": "",
-						"type": "uint256[100]"
+						"type": "uint256[1000]"
 					},
 					{
-						"internalType": "uint256[100]",
+						"internalType": "uint256[1000]",
 						"name": "",
-						"type": "uint256[100]"
+						"type": "uint256[1000]"
 					},
 					{
-						"internalType": "uint256[100]",
+						"internalType": "uint256[1000]",
 						"name": "",
-						"type": "uint256[100]"
+						"type": "uint256[1000]"
 					},
 					{
-						"internalType": "string[100]",
+						"internalType": "string[1000]",
 						"name": "",
-						"type": "string[100]"
+						"type": "string[1000]"
 					},
 					{
 						"internalType": "uint256",
@@ -350,19 +350,6 @@
 				"name": "mintSingle",
 				"outputs": [],
 				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "owner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -776,10 +763,10 @@
 			]
 		},
 		"contracts/NFTContract.sol": {
-			"keccak256": "0xbc362dbff7a757caab4b3ca785fde57802de79815551fe5e8366be924c03b069",
+			"keccak256": "0xb8b3fc8db4ab4b10e8c2a17b6d474d0b31d4dd025b62a10d9b6bd0a4be8bac46",
 			"urls": [
-				"bzz-raw://7b2e3c2d2d9c5d22300e39259941201b869006fe1685ad81d0fa119e3109f71a",
-				"dweb:/ipfs/QmTvxxvbzbJECwAyGw95NsZb1vvpHqWjK1ZkgrkAuF11nm"
+				"bzz-raw://cd10067c51a26d74745d825d213eaf8b8aaea343fb6f673dcb7fb34914f95892",
+				"dweb:/ipfs/QmasTrapkM4JvwGtazcdXL3xp6mPgtEYpdPDvkc79k7pkM"
 			]
 		}
 	},
