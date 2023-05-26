@@ -1,5 +1,5 @@
 import * as React from "react";
-const SvgXDC = (props) => (
+export const XDC = (props) => (
     <svg
         width={20}
         height={20}
@@ -13,4 +13,4 @@ const SvgXDC = (props) => (
     </svg>
 
 );
-export default SvgXDC;
+

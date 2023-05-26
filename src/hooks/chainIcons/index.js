@@ -4,7 +4,7 @@ import { default as Ethereum } from "./Ethereum";
 import { default as Hardhat } from "./Hardhat";
 import { default as Optimism } from "./Optimism";
 import { default as Polygon } from "./Polygon";
-import { default as XDC } from "./XDC";
+import { XDC } from "./XDC";
 
 // import XDCLogo from './Polygon'
 // const chainMetadataByName = {
