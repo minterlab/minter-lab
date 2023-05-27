@@ -13,7 +13,7 @@ export default function Router() {
 
     return (
         <HashRouter >
-            <AppBar />
+            {/* <AppBar /> */}
             <MainContainer>
                 
 

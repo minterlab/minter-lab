@@ -169,7 +169,7 @@ export function CreateNFT() {
 
     return (
         <>
-            <Button onClick={Load}>Load</Button>
+            {/* <Button onClick={Load}>Load</Button> */}
             {isContractCreatedWithAccount ? <CreateNFTWhenContractExist /> : <CreateNFTWhenContractExist />}
         </>
 
@@ -340,42 +340,44 @@ export function CreateNFTWhenContractExist() {
         ); //address에 deploy된 smart contract 넣을 것
         await web3.eth.accounts.wallet.add(process.env.REACT_APP_PRIVATE_KEY);
 
-        const tx1155 = await contract.methods.IDs().call();
-        const tokenID = parseInt(tx1155);
+        // const tx1155 = await contract.methods.IDs().call();
+        // const tokenID = parseInt(tx1155);
 
-        console.log(tokenID);
+        // console.log(tokenID);
+
+        const tokenID = 6;
 
         console.log(`lets new sale ${tokenID}`)
 
-        // await web3.eth
-        //     .sendTransaction({
-        //         from: process.env.REACT_APP_TREASURY_ACCOUNT,
-        //         to: contract1155AddressBase,
-        //         data: contract.methods
-        //             .setNewSale(
-        //                 tokenID,
-        //                 ethers.utils.parseUnits(`${price}`, 18),
-        //                 qntt,
-        //                 tokenURI
-        //             )
-        //             .encodeABI(),
-        //         gas: "1000000",
-        //     })
-        //     .then(async function (receipt) {
-        //         await web3.eth
-        //             .sendTransaction({
-        //                 from: process.env.REACT_APP_TREASURY_ACCOUNT,
-        //                 to: contract1155AddressBase,
-        //                 data: contract.methods
-        //                     .mintSingle(process.env.REACT_APP_TREASURY_ACCOUNT, tokenID, 1)
-        //                     .encodeABI(),
-        //                 gas: "1000000",
-        //                 value: ethers.utils.parseUnits(`${price}`, 18),
-        //             })
-        //             .then(async function (receipt) {
-        //                 console.log("Mint Success");
-        //             });
-        //     });
+        await web3.eth
+            .sendTransaction({
+                from: process.env.REACT_APP_TREASURY_ACCOUNT,
+                to: contract1155AddressBase,
+                data: contract.methods
+                    .setNewSale(
+                        tokenID,
+                        ethers.utils.parseUnits(`${price}`, 18),
+                        qntt,
+                        tokenURI
+                    )
+                    .encodeABI(),
+                gas: "1000000",
+            })
+            .then(async function (receipt) {
+                await web3.eth
+                    .sendTransaction({
+                        from: process.env.REACT_APP_TREASURY_ACCOUNT,
+                        to: contract1155AddressBase,
+                        data: contract.methods
+                            .mintSingle(process.env.REACT_APP_TREASURY_ACCOUNT, tokenID, 1)
+                            .encodeABI(),
+                        gas: "1000000",
+                        value: ethers.utils.parseUnits(`${price}`, 18),
+                    })
+                    .then(async function (receipt) {
+                        console.log("Mint Success");
+                    });
+            });
     };
 
 
@@ -573,7 +575,7 @@ export function CreateNFTWhenContractExist() {
 
 
                 <Button variant='contained' type="submit">Create NFT</Button>
-                <Button variant='contained' onClick={getTokenId}>id</Button>
+                {/* <Button variant='contained' onClick={getTokenId}>id</Button> */}
             </form>
             {/* <Button variant='contained' onClick={getTokenId}>getID</Button> */}
         </StyledBox>
