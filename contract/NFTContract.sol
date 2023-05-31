@@ -52,7 +52,9 @@ contract NFTContract is ERC1155 {
         address to,
         uint256 id,
         uint256 amount) public payable{
-            require(msg.value >= price[id], "Not enough price");
+            if(price[id] > 0){
+                require(msg.value >= price[id], "Not enough price");
+            }
             if(maxSupply[id] != 0){
                 require(amount + totalSupply[id] <= maxSupply[id], "Cannot mint over fixed amount");
             }
