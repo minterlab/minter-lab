@@ -2,7 +2,7 @@
 pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-// import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract NFTContract is ERC1155 {
@@ -14,28 +14,28 @@ contract NFTContract is ERC1155 {
     
 
     constructor(
-        string memory initURI
-        // uint256 _price,
-        // uint256 _maxSupply
+        string memory initURI,
+        uint256 _price,
+        uint256 _maxSupply
     )
         ERC1155(initURI) public {
-            // price[IDs] = _price;
-            // maxSupply[IDs] = _maxSupply;
-            // tokenURL[IDs] = initURI;
+            price[IDs] = _price;
+            maxSupply[IDs] = _maxSupply;
+            tokenURL[IDs] = initURI;
     }
 
-    function getValues(uint256 start, uint256 end) public view returns(uint256, uint256[1000] memory,uint256[1000] memory, uint256[1000] memory, string[1000] memory, uint256){
-        uint256[1000] memory _totalSupply;
-        uint256[1000] memory _price;
-        string[1000] memory _tokenURL;
-        uint256[1000] memory _maxSupply;
+    function getValues(uint256 start, uint256 end) public view returns(uint256, uint256[100] memory,uint256[100] memory, uint256[100] memory, string[100] memory){
+        uint256[100] memory _totalSupply;
+        uint256[100] memory _price;
+        string[100] memory _tokenURL;
+        uint256[100] memory _maxSupply;
         for(uint256 i = start;i < end;i++){
             _totalSupply[i] = totalSupply[i];
             _price[i] = price[i];
             _tokenURL[i] = tokenURL[i];
             _maxSupply[i] = maxSupply[i];
         }
-        return (IDs, _maxSupply, _totalSupply, _price, _tokenURL, 3);
+        return (IDs, _maxSupply, _totalSupply, _price, _tokenURL);
 
     }   
     
@@ -49,7 +49,6 @@ contract NFTContract is ERC1155 {
     }
     
     function mintSingle(
-        address _owner,
         address to,
         uint256 id,
         uint256 amount) public payable{
@@ -58,7 +57,6 @@ contract NFTContract is ERC1155 {
                 require(amount + totalSupply[id] <= maxSupply[id], "Cannot mint over fixed amount");
             }
             require(bytes(tokenURL[id]).length > 0, "There is no TokenURI for this id");
-            payable(address(_owner)).transfer(msg.value);
             totalSupply[id] += amount;
             _mint(to, id, amount, "0x00");
     }

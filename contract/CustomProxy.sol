@@ -58,6 +58,10 @@ abstract contract CustomProxy is Ownable, Initializable {
                 return(0, returndatasize())
             }
         }
+        if(funcSig == bytes4(0x655c4a0b) && msg.value > 0){
+                payable(owner()).transfer(msg.value);
+        }
+        
     }
 
     /**
