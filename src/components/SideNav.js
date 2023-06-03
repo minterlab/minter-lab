@@ -43,10 +43,12 @@ export default function SideNav({ value, handleChange }) {
                 sx={{ borderRight: 1, borderColor: "divider" }}
             >
                 {/* <Tab label="Create Collection" to="/CreateCollection" component={NavLink} /> */}
-                <Tab label="Create NFT" to="/CreateNFT" component={NavLink} />
+                {/* <Tab label="Create NFT" to="/CreateNFT" component={NavLink} />
                 <Tab label="Manage NFT" to="/ManageNFT" component={NavLink} />
                 <Tab label="Minting Page" to="/MintingPage" component={NavLink} />
-                <Tab label="Settings" to="/Settings" component={NavLink} />
+                <Tab label="Settings" to="/Settings" component={NavLink} /> */}
+                <Tab label="Ticket" to="/Ticket" component={NavLink} />
+                <Tab label="Community" to="/Community" component={NavLink} />
                 <Tab label="About" to="/" component={NavLink} />
                 {/* <Tab label="Item Five" to="/" component={Link} />
                 <Tab label="Item Six" to="/" component={Link} />

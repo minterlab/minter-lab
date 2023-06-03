@@ -10,7 +10,7 @@ import SideNav from './SideNav';
 import { useLocation } from 'react-router-dom';
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import CollectionSelect from './CollectionSelect1155';
+
 
 const drawerWidth = 240;
 
@@ -81,7 +81,7 @@ export default function ResponsiveDrawer() {
           </Typography> */}
           <Box sx={{ flexGrow: 2 }} >
 
-            <CollectionSelect  />
+            {/* <CollectionSelect  /> */}
           </Box>
           <Box sx={{ flexGrow: 1 }} >
 
