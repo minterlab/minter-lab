@@ -6,6 +6,8 @@ import { default as Optimism } from "./Optimism";
 import { default as Polygon } from "./Polygon";
 import { XDC } from "./XDC";
 
+
+import Patex from './patex.png'
 // import XDCLogo from './Polygon'
 // const chainMetadataByName = {
 //     arbitrum: Arbitrum,
@@ -40,6 +42,11 @@ const chainMetadataByName = {
 
     50: XDC,
     51: XDC,
+
+    // 789: Patex,
+    // 471100: Patex,
+    789: Ethereum,
+    471100: Ethereum,
 }
 
 export default chainMetadataByName;

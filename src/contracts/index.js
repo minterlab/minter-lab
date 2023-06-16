@@ -26,6 +26,9 @@ export const manager1155AddressByChainId = {
 
     50: "0x4EF765d1107B5E4627B0CD8728Ca72aa6134F361",
     51: "0x4EF765d1107B5E4627B0CD8728Ca72aa6134F361",
+
+    789: "0xCa333895051a9A6bE6F495d1Bb7b9AeeC8364363",
+    471100: "0xCa333895051a9A6bE6F495d1Bb7b9AeeC8364363",
 }
 
 // export const contract1155AddressByChainId = {
@@ -47,6 +50,9 @@ export const chainName = {
 
     50: "XDC",
     51: "XDC Testnet",
+
+    789: "Patex",
+    471100: "Patex Testnet",
 }
 
 export const isChainTestnet = {
@@ -60,6 +66,9 @@ export const isChainTestnet = {
 
     50: false,
     51: true,
+
+    789: false,
+    471100: true,
 }
 
 export const chainSymbol = {
@@ -73,6 +82,9 @@ export const chainSymbol = {
 
     50: "xdc",
     51: "xdc testnet",
+
+    789: "patex",
+    471100: "patex testnet",
 }
 
 // export const chainIdNameMap = {

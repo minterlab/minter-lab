@@ -9,6 +9,39 @@ import { publicProvider } from 'wagmi/providers/public'
 //     publicProvider(),
 //   ],
 // )
+
+const patexTestnet = {
+  id: 471100,
+  name: 'Patex Sepolia Testnet',
+  network: 'Patex Sepolia Testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Patex Sepolia Testnet',
+    symbol: 'ETH',
+  },
+  rpcUrls: {
+    public: { http: ['https://test-rpc.patex.io/'] },
+    default: { http: ['https://test-rpc.patex.io/'] },
+  },
+}
+
+
+const patex = {
+  id: 789,
+  name: 'Patex',
+  network: 'Patex',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Patex',
+    symbol: 'ETH',
+  },
+  rpcUrls: {
+    public: { http: ['https://rpc.patex.io/'] },
+    default: { http: ['https://rpc.patex.io/'] },
+  },
+}
+
+console.log(polygonMumbai)
 const MODE = 'development'
 
 const { chains, provider, webSocketProvider } = configureChains(
@@ -21,6 +54,8 @@ const { chains, provider, webSocketProvider } = configureChains(
     polygonZkEvmTestnet,
     xdc,
     xdcTestnet,
+    patex,
+    patexTestnet,
     ...(MODE === 'development' ? [goerli, polygonMumbai] : [])],
   [
     publicProvider(),
