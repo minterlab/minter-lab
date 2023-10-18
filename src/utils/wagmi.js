@@ -25,7 +25,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     polygon,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
   ],
-  [infuraProvider({ apiKey: '6ab29688e72d40da8678bf44ed99f65f' }),publicProvider()]
+  [infuraProvider({ apiKey: process.env.REACT_APP_INFURA }),publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
