@@ -11,8 +11,13 @@ import { getAccount, getNetwork } from '@wagmi/core'
 import { manager1155AddressByChainId, manager1155ABI } from './contracts'
 import { ethers } from 'ethers';
 
-
+// import { WagmiWrapper } from './utils/wagmi'
 //test ipad
+
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+
+import { chains, wagmiConfig } from './utils/wagmi'
 
 
 
@@ -146,15 +151,24 @@ export default function App() {
 
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <WagmiConfig config={wagmiConfig}>
+      <RainbowKitProvider chains={chains}>
 
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <Suspense fallback={<div>Loading...</div>}>
-          <Router />
-        </Suspense>
-      </Box>
-    </ThemeProvider>
+
+
+        <ThemeProvider theme={darkTheme}>
+
+          <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Router />
+            </Suspense>
+          </Box>
+        </ThemeProvider>
+
+      </RainbowKitProvider>
+    </WagmiConfig>
+
   )
 }
 

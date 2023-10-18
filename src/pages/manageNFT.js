@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { useMinterLabStore } from '../hooks';
 import { ethers } from 'ethers';
-import { useAccount, useProvider, useSigner } from 'wagmi';
+import { useAccount, usePublicClient, useWalletClient } from 'wagmi';
 import axios from 'axios';
 
 
@@ -74,7 +74,8 @@ export function ManageNFT() {
 
 function ManageNFTWhenContractExist() {
 
-    const { data: signer, isError, isLoading } = useSigner()
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
 
 
@@ -83,7 +84,7 @@ function ManageNFTWhenContractExist() {
 
     // const contract1155Address = "0xBe29265464064d382724bB4801Dd87528CbB349B"
     const contract1155Address = useMinterLabStore(state => state.contract1155Address)
-    const provider = useProvider()
+    // const provider = usePublicClient()
 
     const [nftInfoList, setNftInfoList] = useState([])
 
@@ -183,7 +184,7 @@ function ManageNFTWhenContractExist() {
 
 
         FetchAllNFTInfo()
-    }, [provider, contract1155Address])
+    }, [contract1155Address])
 
 
     // async function FetchAllNFTInfo() {
@@ -283,7 +284,9 @@ function NFTInfoCard({ tokenId, tokenURL, totalSupplyProp, priceProp, maxSupplyP
     const [description, setDescription] = useState("");
 
 
-    const { data: signer, isError, isLoading } = useSigner()
+    // const { data: signer, isError, isLoading } = useWalletClient()
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
 
 

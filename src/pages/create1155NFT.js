@@ -5,7 +5,7 @@ import { useDropzone } from 'react-dropzone';
 // import { styled } from '@mui/system';
 // import { TextField, Button } from '@material-ui/core';
 import { TextField, Button } from '@mui/material'
-import { useNetwork, useSigner } from "wagmi";
+import { useNetwork, useWalletClient } from "wagmi";
 import { ethers } from "ethers";
 import { ipfsUploadImage, ipfsUploadMetadata } from '../utils/ipfsUpload';
 import { useMinterLabStore } from '../hooks';
@@ -69,9 +69,9 @@ const getColor = (props) => {
     if (props.isDragReject) {
         return '#ff1744';
     }
-    if (props.isFocused) {
-        return '#2196f3';
-    }
+    // if (props.isFocused) {
+    //     return '#2196f3';
+    // }
     return '#eeeeee';
 }
 
@@ -166,7 +166,10 @@ export function CreateNFT() {
 
 export function CreateNFTWhenContractNotExist() {
     const { chain } = useNetwork()
-    const { data: signer, isError, isLoading } = useSigner();
+    // const { data: signer, isError, isLoading } = useWalletClient();
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
     async function DeploySmartContract() {
         console.log("DeploySmartContract");
@@ -211,11 +214,12 @@ export function CreateNFTWhenContractExist() {
     const [price, setPrice] = useState(0);
     const [maxSupply, setMaxSupply] = useState(0);
 
-    
-    const { data: signer, isError, isLoading } = useSigner();
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
     const { getRootProps,
         getInputProps,
-        isFocused,
+
         isDragAccept,
         isDragReject } = useDropzone({
             maxFiles: 1,
@@ -327,38 +331,34 @@ export function CreateNFTWhenContractExist() {
                     // 만약 IDs 를 가져왔는데 0 이면 , contract deploy 하게함 
                     // const IDs = await contractWithSigner.IDs()
                     // console.log("IDs", IDs)
-                    if (!isContractCreatedWithAccount) {
-                        // contract deploy
+
+                    // set new sale.
+
+                    const contract = new ethers.Contract(contract1155Address, contract1155ABI, signer);
+                    console.log(contract);
+                    const contractWithSigner = contract.connect(signer)
+
+                    // const tx1155 = await contractWithSigner.getValues(0, 100)
+                    // console.log(tx1155)
+                    // const newTokenId = tx1155[0].toNumber() + 1
+                    const tx1155 = await contractWithSigner.IDs();
+                    const IDs = tx1155.toNumber();
+
+                    // const tx = await contractWithSigner.mintSingle(tokenURL)
+                    const tx = await contractWithSigner.setNewSale(IDs, ethers.utils.parseUnits(price, 18), +maxSupply, tokenURL)
+
+                    const rc = await tx.wait()
 
 
-                    } else {
-                        // set new sale.
+                    // alert("Your NFT is successfully minted!");
 
-                        const contract = new ethers.Contract(contract1155Address, contract1155ABI, signer);
-                        console.log(contract);
-                        const contractWithSigner = contract.connect(signer)
+                    console.log(tx);
 
-                        // const tx1155 = await contractWithSigner.getValues(0, 100)
-                        // console.log(tx1155)
-                        // const newTokenId = tx1155[0].toNumber() + 1
-                        const tx1155 = await contractWithSigner.IDs();
-                        const IDs = tx1155.toNumber();
-
-                        // const tx = await contractWithSigner.mintSingle(tokenURL)
-                        const tx = await contractWithSigner.setNewSale(IDs, ethers.utils.parseUnits(price, 18), +maxSupply, tokenURL)
-
-                        const rc = await tx.wait()
-
-
-                        // alert("Your NFT is successfully minted!");
-
-                        console.log(tx);
-
-                        console.log(rc);
-                    }
+                    console.log(rc);
 
 
                 } catch (error) {
+                    console.log(error)
                     setIsLoading(false);
                 }
 
@@ -392,7 +392,7 @@ export function CreateNFTWhenContractExist() {
             <div style={test}>
 
                 <section className="container">
-                    <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
+                    <Container {...getRootProps({ isDragAccept, isDragReject })}>
                         <input {...getInputProps()} />
                         <p>Drag 'n' drop some files here, or click to select files</p>
                     </Container>

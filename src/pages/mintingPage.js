@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import ShareIcon from '@mui/icons-material/Share';
 // import { Box } from "@mui/system";
 import { primaryColor } from "../utils/theme";
-import { useAccount, useSigner, useSwitchNetwork, useNetwork, useProvider } from "wagmi";
+import { useAccount, useWalletClient, useSwitchNetwork, useNetwork, usePublicClient } from "wagmi";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useMinterLabStore } from "../hooks";
@@ -177,7 +177,8 @@ function Buyer({ contract1155Address, chainId }) {
     const userWalletChainId = chain?.id ?? 0
     console.log("userwalletchainid", userWalletChainId);
 
-    const { data: signer, isError } = useSigner()
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
     const setIsLoading = useMinterLabStore(state => state.setIsLoading)
 
@@ -329,7 +330,8 @@ function Buyer({ contract1155Address, chainId }) {
 
 function ManageNFT({ chainId, contract1155Address }) {
 
-    const { data: signer, isError, isLoading } = useSigner()
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
 
 
@@ -338,7 +340,7 @@ function ManageNFT({ chainId, contract1155Address }) {
 
     // const contract1155Address = "0xBe29265464064d382724bB4801Dd87528CbB349B"
     // const contract1155Address = useMinterLabStore(state => state.contract1155Address)
-    const provider = useProvider()
+   
 
     const [nftInfoList, setNftInfoList] = useState([])
 

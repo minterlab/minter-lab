@@ -5,20 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import '@rainbow-me/rainbowkit/styles.css'
-import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit'
-import { WagmiConfig } from 'wagmi'
-import { chains, client } from './utils/wagmi'
+
+
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <WagmiConfig client={client}>
-      <RainbowKitProvider chains={chains} theme={darkTheme({
-        accentColor:"#c9aa2a"
-      })}>
-        <App />
-      </RainbowKitProvider>
-    </WagmiConfig>
+
+
+    <App />
+
   </React.StrictMode>
 );
 

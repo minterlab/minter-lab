@@ -3,17 +3,18 @@ import { Box } from "@mui/system";
 import { getCollections, importCollections } from "../utils/db";
 
 import { manager1155AddressByChainId, manager1155ABI } from "../contracts";
-import { useAccount, useNetwork, useProvider, useSigner } from "wagmi";
+import { useAccount, useNetwork, usePublicClient, useWalletClient } from "wagmi";
 import { ethers } from "ethers";
 
 export function Settings() {
 
     const account = useAccount();
-    const provider = useProvider()
+    // const provider = usePublicClient()
 
     const { chain } = useNetwork()
 
-    const { data: signer, isError, isLoading } = useSigner()
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
     function handleExport() {
         getCollections().then((collections) => {

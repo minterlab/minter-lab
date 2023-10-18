@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
 import { Button, Fade, Grow, TextField } from '@mui/material';
 import { useMinterLabStore } from '../hooks';
-import { useAccount, useNetwork, useSigner } from 'wagmi';
+import { useAccount, useNetwork, useWalletClient } from 'wagmi';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import { contract1155ABI,chainSymbol } from '../contracts';
@@ -213,7 +213,8 @@ const NiftyGatewayCard = ({ tokenId, tokenURL, totalSupplyProp, priceProp, maxSu
     const [description, setDescription] = useState("");
 
 
-    const { data: signer, isError, isLoading } = useSigner()
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
     const account = useAccount()
 
