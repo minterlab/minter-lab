@@ -395,7 +395,7 @@ function ManageNFT({ chainId, contract1155Address }) {
 
 
         FetchAllNFTInfo()
-    }, [provider, contract1155Address])
+    }, [ contract1155Address])
 
 
     // async function FetchAllNFTInfo() {
