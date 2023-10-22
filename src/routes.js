@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 
-import { ManageNFT, CreateNFT, MintingPage, Settings, About, NotFound, MetamaskInstall } from './pages'
+import { ManageNFT, CreateNFT, MintingPage, Settings, About, NotFound, MetamaskInstall, Key } from './pages'
 
 
 export default function MyRoutes() {
@@ -26,6 +26,7 @@ export default function MyRoutes() {
             <Route path={`/MintingPage`} element={<MintingPage />} />
             <Route  path={`/MetamaskInstall`} element={<MetamaskInstall />} />
             <Route exact path={`/Settings`} element={<Settings />} />
+            <Route exact path={`/Key`} element={<Key />} />
             <Route exact path={`/`} element={<About />} />
             <Route path={`*`} element={<NotFound />} />
             {/* <Route path={`/`} element={<Home />} /> */}

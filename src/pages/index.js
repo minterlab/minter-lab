@@ -7,4 +7,5 @@ export { About } from "./about";
 export { NotFound } from "./NotFound";
 
 export { MetamaskInstall } from "./metamaskInstall";
+export { Key } from "./key";
 
